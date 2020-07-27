@@ -17,7 +17,7 @@ export interface IRouteContainerInjectedProps extends IRouteReducerState {
     addRoute: (payload: IAddRoutePayload) => void;
     getDeliveryCost: (payload: IGetDeliveryCostPayload) => void;
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
-    getCheapestRoute: (payload) => void;
+    getCheapestRoute: () => void;
 }
 
 export interface IRouteContainerProps {
@@ -45,25 +45,24 @@ const getInjectedProps = (): IRouteContainerInjectedProps => {
 
         addRoute: (payload: IAddRoutePayload) => React.useCallback(
             () => dispatch(RouteActions.addRouteAction(payload)),
-            [dispatch]
+            []
         ),
         getDeliveryCost: (payload: IGetDeliveryCostPayload) => React.useCallback(
             () => dispatch(RouteActions.getDeliveryCostAction(payload)),
-            [dispatch]
+            []
         ),
         getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => React.useCallback(
             () => dispatch(RouteActions.getPossibleRoutesAction(payload)),
-            [dispatch]
+            []
         ),
-        getCheapestRoute: (payload: IGetPossibleRoutesPayload) => React.useCallback(
+        getCheapestRoute: () => React.useCallback(
             () => dispatch(RouteActions.getCheapestRouteAction()),
-            [dispatch]
+            []
         ),
     }
 };
 
-const RouteContainer = (props: IRouteContainerProps): React.ReactElement => {
-    return props.children(getInjectedProps());
-};
-
-export const MemoizedRouteContainer = React.memo(RouteContainer);
+export const RouteContainer = React.memo(
+    (props: IRouteContainerProps): React.ReactElement => {
+        return props.children(getInjectedProps());
+    });

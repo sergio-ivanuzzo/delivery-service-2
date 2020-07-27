@@ -24,12 +24,10 @@ export interface IGetDeliveryCostPayload {
 }
 
 export interface IGetDeliveryCostCompletePayload {
-    deliveryCost: number;
+    cost: number;
 }
 
-export interface IGetPossibleRoutesPayload {
-    origin: string;
-    destination: string;
+export interface IGetPossibleRoutesPayload extends IGetDeliveryCostPayload {
     maxStopCount: number;
 }
 
