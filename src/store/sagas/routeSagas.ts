@@ -1,15 +1,21 @@
 import { put } from "redux-saga/effects";
 
+import RouteGraph from "../structures/routeGraph";
 import * as ErrorActions from "../actions/errorActions";
 import * as RouteActions from "../actions/routeActions";
-import RouteGraph from "../structures/routeGraph";
+import {
+    IAddRouteAction,
+    IGetDeliveryCostAction,
+    IGetPossibleRoutesAction,
+    IGetCheapestRouteAction,
+} from "../actions/routeActions";
 
 const routeGraph = new RouteGraph();
 
-export function* addRouteSaga(action) {
+export function* addRouteSaga(action: IAddRouteAction) {
     try {
-        const { vertex, node, cost } = action.payload;
-        routeGraph.addEdge(vertex, node, cost);
+        const { origin, destination, cost } = action.payload;
+        routeGraph.addEdge(origin, destination, cost);
 
         const addedRoutes = Array.from(
             routeGraph.mapCostToRoute.entries()
@@ -28,7 +34,7 @@ export function* addRouteSaga(action) {
     }
 }
 
-export function* getDeliveryCostSaga(action) {
+export function* getDeliveryCostSaga(action: IGetDeliveryCostAction) {
     try {
         // ...
     } catch (e) {
@@ -36,7 +42,7 @@ export function* getDeliveryCostSaga(action) {
     }
 }
 
-export function* getPossibleRoutesSaga(action) {
+export function* getPossibleRoutesSaga(action: IGetPossibleRoutesAction) {
     try {
         // ...
     } catch (e) {
@@ -44,7 +50,7 @@ export function* getPossibleRoutesSaga(action) {
     }
 }
 
-export function* getCheapestRouteSaga(action) {
+export function* getCheapestRouteSaga(action: IGetCheapestRouteAction) {
     try {
         // ...
     } catch (e) {

@@ -13,7 +13,7 @@ const initialState: IRouteReducerState = {
     addedRoutes: [],
     deliveryCost: 0,
     possibleRoutes: [],
-    cheapestRoute: undefined
+    cheapestRoute: ""
 };
 
 export const routeReducer = (

@@ -14,8 +14,10 @@ export default class RouteGraph {
         this.setVertex(node);
 
         const adjacentNodes = this.adgencyList.get(vertex);
-        if (!adjacentNodes.includes(node)) {
-            adjacentNodes.push(node);
+        if (adjacentNodes) {
+            if (!adjacentNodes.includes(node)) {
+                adjacentNodes.push(node);
+            }
         }
 
         this.mapCostToRoute.set(vertex + node, cost);

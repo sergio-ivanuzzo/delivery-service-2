@@ -4,6 +4,7 @@ import {
     IGetDeliveryCostPayload,
     IGetPossibleRoutesPayload
 } from "../../store/actions/routeActions";
+import { useFormHook } from "../../hooks/formHook";
 
 interface IDeliveryRouteFormProps {
     getDeliveryCost: (payload: IGetDeliveryCostPayload) => void;
@@ -25,9 +26,15 @@ export const DeliveryRouteForm = (
         maxStopCount: 0
     };
 
-    const [state, setState] = React.useState(initialState);
+    const {
+        state,
+        handleChange,
+        resetForm
+    } = useFormHook(initialState);
 
-    const processSubmit = React.useCallback(() => {
+    const handleSubmit = (event: React.FormEvent) => React.useCallback(() => {
+        event.preventDefault();
+
         props.getDeliveryCost({
             deliveryRoute: state.route
         });
@@ -37,22 +44,20 @@ export const DeliveryRouteForm = (
         });
         props.getCheapestRoute();
 
-        setState(initialState);
+        resetForm();
     }, []);
 
-    React.useEffect(() => {
-        setState(state);
-    }, [state]);
-
     return (
-        <form onSubmit={processSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="route">Input Delivery Route</label>
                 <input
                     type="text"
                     value={state.route}
                     id="route"
+                    name="route"
                     placeholder="Example: ABCDE"
+                    onChange={handleChange}
                 />
             </div>
             <div>
@@ -61,6 +66,8 @@ export const DeliveryRouteForm = (
                     type="number"
                     value={state.maxStopCount}
                     id="maxStopCount"
+                    name="maxStopCount"
+                    onChange={handleChange}
                 />
             </div>
             <div>

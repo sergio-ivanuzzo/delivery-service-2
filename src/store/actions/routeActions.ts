@@ -1,3 +1,5 @@
+import { AnyAction } from "redux";
+
 export enum RouteActions {
     ADD_ROUTE_REQUEST = "ADD_ROUTE_REQUEST",
     ADD_ROUTE_COMPLETE = "ADD_ROUTE_COMPLETE",
@@ -19,12 +21,20 @@ export interface IAddRouteCompletePayload {
     addedRoutes: string[];
 }
 
+export interface IAddRouteAction extends AnyAction {
+    payload: IAddRoutePayload;
+}
+
 export interface IGetDeliveryCostPayload {
     deliveryRoute: string;
 }
 
 export interface IGetDeliveryCostCompletePayload {
     cost: number;
+}
+
+export interface IGetDeliveryCostAction extends AnyAction {
+    payload: IGetDeliveryCostPayload;
 }
 
 export interface IGetPossibleRoutesPayload extends IGetDeliveryCostPayload {
@@ -34,6 +44,16 @@ export interface IGetPossibleRoutesPayload extends IGetDeliveryCostPayload {
 export interface IGetPossibleRoutesCompletePayload {
     possibleRoutes: string[];
 }
+
+export interface IGetPossibleRoutesAction extends AnyAction {
+    payload: IGetPossibleRoutesPayload;
+}
+
+export interface IGetCheapestRouteCompletePayload {
+    cheapestRoute: string;
+}
+
+export interface IGetCheapestRouteAction extends AnyAction {}
 
 export function addRouteAction(payload: IAddRoutePayload) {
     return {
@@ -74,7 +94,9 @@ export function getPossibleRoutesAction(payload: IGetPossibleRoutesPayload) {
     }
 }
 
-export function getPossibleRoutesCompleteAction(payload) {
+export function getPossibleRoutesCompleteAction(
+    payload: IGetPossibleRoutesCompletePayload
+) {
     return {
         type: RouteActions.GET_POSSIBLE_ROUTES_COMPLETE,
         payload
@@ -87,7 +109,9 @@ export function getCheapestRouteAction() {
     }
 }
 
-export function getCheapestRouteCompleteAction(payload) {
+export function getCheapestRouteCompleteAction(
+    payload: IGetCheapestRouteCompletePayload
+) {
     return {
         type: RouteActions.GET_CHEAPEST_ROUTE_COMPLETE,
         payload
