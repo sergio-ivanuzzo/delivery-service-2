@@ -1,13 +1,14 @@
 import * as React from "react";
 
 import {
+    IGetCheapestRoutePayload,
     IGetPossibleRoutesPayload
 } from "../../store/actions/routeActions";
 import { useFormHook } from "../../hooks/formHook";
 
 interface IDeliveryRouteFormProps {
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
-    getCheapestRoute: () => void;
+    getCheapestRoute: (payload: IGetCheapestRoutePayload) => void;
 }
 
 interface IDeliveryRouteFormState {
@@ -36,7 +37,6 @@ export const DeliveryRouteForm = (
         event.preventDefault();
 
         props.getPossibleRoutes({...state});
-        props.getCheapestRoute();
 
         resetForm();
     }, []);

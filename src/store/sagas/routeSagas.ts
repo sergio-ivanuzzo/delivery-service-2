@@ -30,7 +30,7 @@ export function* addRouteSaga(action: IAddRouteAction) {
     } catch (e) {
         yield put(ErrorActions.addRouteErrorAction({
             error: e.toString()
-        }))
+        }));
     }
 }
 
@@ -39,22 +39,16 @@ export function* getDeliveryCostSaga(action: IGetDeliveryCostAction) {
 
         const { deliveryRoute } = action.payload;
 
-        const { cost, noRoute } = routeGraph.getRouteCost(deliveryRoute);
+        const cost = routeGraph.getRouteCost(deliveryRoute);
 
-        if (noRoute) {
-            yield put(ErrorActions.addRouteErrorAction({
-                error: "No Route"
-            }))
-        } else {
-            yield put(RouteActions.getDeliveryCostCompleteAction({
-                cost
-            }))
-        }
+        yield put(RouteActions.getDeliveryCostCompleteAction({
+            cost
+        }));
 
     } catch (e) {
         yield put(ErrorActions.addRouteErrorAction({
             error: e.toString()
-        }))
+        }));
     }
 }
 
@@ -71,13 +65,15 @@ export function* getPossibleRoutesSaga(action: IGetPossibleRoutesAction) {
             destination,
             maxStopCount
         );
+
         yield put(RouteActions.getPossibleRoutesCompleteAction({
             possibleRoutes
         }));
+
     } catch (e) {
         yield put(ErrorActions.addRouteErrorAction({
             error: e.toString()
-        }))
+        }));
     }
 }
 
@@ -85,13 +81,15 @@ export function* getCheapestRouteSaga(action: IGetCheapestRouteAction) {
     try {
         const { possibleRoutes } = action.payload;
         const cheapestRoutes = routeGraph.getCheapestRoutes(possibleRoutes);
+
         yield put(RouteActions.getCheapestRouteCompleteAction({
             cheapestRoutes
-        }))
+        }));
+
     } catch (e) {
         yield put(ErrorActions.addRouteErrorAction({
             error: e.toString()
-        }))
+        }));
     }
 }
 

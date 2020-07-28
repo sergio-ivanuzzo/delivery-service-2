@@ -8,7 +8,9 @@ import {
 import { IRouteReducerState } from "../store/reducers/routeReducer";
 import {
     IAddRoutePayload,
-    IGetDeliveryCostPayload, IGetPossibleRoutesPayload
+    IGetCheapestRoutePayload,
+    IGetDeliveryCostPayload,
+    IGetPossibleRoutesPayload
 } from "../store/actions/routeActions";
 
 import * as RouteActions from "../store/actions/routeActions";
@@ -17,7 +19,7 @@ export interface IRouteContainerInjectedProps extends IRouteReducerState {
     addRoute: (payload: IAddRoutePayload) => void;
     getDeliveryCost: (payload: IGetDeliveryCostPayload) => void;
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
-    getCheapestRoute: () => void;
+    getCheapestRoute: (payload: IGetCheapestRoutePayload) => void;
 }
 
 export interface IRouteContainerProps {
@@ -55,8 +57,8 @@ const getInjectedProps = (): IRouteContainerInjectedProps => {
             () => dispatch(RouteActions.getPossibleRoutesAction(payload)),
             []
         ),
-        getCheapestRoute: () => React.useCallback(
-            () => dispatch(RouteActions.getCheapestRouteAction()),
+        getCheapestRoute: (payload: IGetCheapestRoutePayload) => React.useCallback(
+            () => dispatch(RouteActions.getCheapestRouteAction(payload)),
             []
         ),
     }

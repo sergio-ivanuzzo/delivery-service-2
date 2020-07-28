@@ -1,3 +1,7 @@
+import { IncorrectNodeError } from "../../errors/incorrectNodeError";
+import { NoPossibleRoutesError } from "../../errors/noPossibleRoutesError";
+import { NoRouteError } from "../../errors/noRouteError";
+
 export default class RouteGraph {
 
     adgencyList: Map<string, Array<string>>;
@@ -41,18 +45,29 @@ export default class RouteGraph {
             }
         }
 
-        return {
-            cost: totalCost,
-            noRoute
+        if (noRoute) {
+            throw new NoRouteError();
         }
+
+        return totalCost;
     }
 
-    getPossibleRoutes(origin: string, destination: string, maxStopCount: number) {
-        const routes: Array<string> = [];
+    getPossibleRoutes(
+        origin: string,
+        destination: string,
+        maxStopCount: number
+    ) {
+
+        const vertexList = Array.from(this.adgencyList.keys());
+        if (!vertexList.includes(origin) || !vertexList.includes(destination)) {
+            throw new IncorrectNodeError();
+        }
+
+        let routes: Array<string> = [];
         let route: Array<string> = [];
 
         const visited = new Map<string, boolean>();
-        Array.from(this.adgencyList.keys()).forEach((vertex: string) => {
+        vertexList.forEach((vertex: string) => {
             visited.set(vertex, false);
         });
 
@@ -84,15 +99,20 @@ export default class RouteGraph {
             return routes;
         };
 
-        return findRoute(origin, 0);
+        routes = findRoute(origin, 0);
+
+        if (!routes) {
+            throw new NoPossibleRoutesError();
+        }
+
+        return routes;
     }
 
     getCheapestRoutes(possibleRoutes: string[]): string[] {
         const routesCost: {[route: string]: number} = {};
 
         possibleRoutes.forEach((route) => {
-            const { cost } = this.getRouteCost(route);
-            routesCost[route] = cost;
+            routesCost[route] = this.getRouteCost(route);
         });
 
         const minCost = Math.min(...Object.values(routesCost));
