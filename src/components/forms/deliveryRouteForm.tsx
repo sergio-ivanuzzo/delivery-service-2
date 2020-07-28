@@ -1,19 +1,18 @@
 import * as React from "react";
 
 import {
-    IGetDeliveryCostPayload,
     IGetPossibleRoutesPayload
 } from "../../store/actions/routeActions";
 import { useFormHook } from "../../hooks/formHook";
 
 interface IDeliveryRouteFormProps {
-    getDeliveryCost: (payload: IGetDeliveryCostPayload) => void;
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
     getCheapestRoute: () => void;
 }
 
 interface IDeliveryRouteFormState {
-    route: string;
+    origin: string;
+    destination: string;
     maxStopCount: number;
 }
 
@@ -22,7 +21,8 @@ export const DeliveryRouteForm = (
 ): React.ReactElement => {
 
     const initialState: IDeliveryRouteFormState = {
-        route: "",
+        origin: "",
+        destination: "",
         maxStopCount: 0
     };
 
@@ -35,13 +35,7 @@ export const DeliveryRouteForm = (
     const handleSubmit = (event: React.FormEvent) => React.useCallback(() => {
         event.preventDefault();
 
-        props.getDeliveryCost({
-            deliveryRoute: state.route
-        });
-        props.getPossibleRoutes({
-            deliveryRoute: state.route,
-            maxStopCount: state.maxStopCount
-        });
+        props.getPossibleRoutes({...state});
         props.getCheapestRoute();
 
         resetForm();
@@ -50,13 +44,24 @@ export const DeliveryRouteForm = (
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label htmlFor="route">Input Delivery Route</label>
+                <label htmlFor="route">Input Delivery Route Origin</label>
                 <input
                     type="text"
-                    value={state.route}
+                    value={state.origin}
                     id="route"
                     name="route"
-                    placeholder="Example: ABCDE"
+                    placeholder="Example: A"
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="destination">Input Delivery Route Destination</label>
+                <input
+                    type="text"
+                    value={state.destination}
+                    id="destination"
+                    name="destination"
+                    placeholder="Example: B"
                     onChange={handleChange}
                 />
             </div>

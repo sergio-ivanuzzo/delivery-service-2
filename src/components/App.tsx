@@ -10,10 +10,12 @@ import {
 
 import { AddRouteForm } from "./forms/addRouteForm";
 import { DeliveryRouteForm } from "./forms/deliveryRouteForm";
+import { DeliveryCostForm } from "./forms/deliveryCostForm";
 
 const renderUI = (props: IRouteContainerInjectedProps): React.ReactElement => {
     return (
         <>
+            <DeliveryCostForm {...props} />
             <AddRouteForm {...props} />
             <DeliveryRouteForm {...props} />
         </>
