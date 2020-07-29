@@ -1,22 +1,29 @@
 export enum ErrorActions {
-    ADD_ROUTE_ERROR = "ADD_ROUTE_ERROR",
-    NO_POSSIBLE_ROUTES = "NO_POSSIBLE_ROUTES",
+    ADD_ERROR = "ADD_ERROR",
+    REMOVE_ERRORS = "REMOVE_ERRORS"
 }
 
-export interface IErrorPayload {
-    error: string;
+export interface IAddErrorPayload {
+    text: string;
+    type: string;
+    color: string;
+    uniqId: string;
 }
 
-export function addRouteErrorAction(payload: IErrorPayload) {
+export interface IRemoveErrorPayload {
+    type: string;
+}
+
+export function addErrorAction(payload: IAddErrorPayload) {
     return {
-        type: ErrorActions.ADD_ROUTE_ERROR,
+        type: ErrorActions.ADD_ERROR,
         payload
     }
 }
 
-export function noPossibleRoutesAction(payload: IErrorPayload) {
+export function removeErrorAction(payload: IRemoveErrorPayload) {
     return {
-        type: ErrorActions.NO_POSSIBLE_ROUTES,
+        type: ErrorActions.REMOVE_ERRORS,
         payload
     }
 }

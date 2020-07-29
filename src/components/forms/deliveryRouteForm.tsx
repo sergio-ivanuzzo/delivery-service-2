@@ -1,10 +1,13 @@
 import * as React from "react";
+import { shallowEqual } from "react-redux";
 
 import {
     IGetCheapestRoutePayload,
     IGetPossibleRoutesPayload
 } from "../../store/actions/routeActions";
 import { useFormHook } from "../../hooks/formHook";
+import { ColorText } from "../common/colorText";
+import { FormColor } from "../../common/constants";
 
 interface IDeliveryRouteFormProps {
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
@@ -17,7 +20,7 @@ interface IDeliveryRouteFormState {
     maxStopCount: number;
 }
 
-export const DeliveryRouteForm = (
+export const DeliveryRouteForm = React.memo((
     props: IDeliveryRouteFormProps
 ): React.ReactElement => {
 
@@ -33,10 +36,17 @@ export const DeliveryRouteForm = (
         handleSubmit
     } = useFormHook(initialState);
 
+    const firstInputRef = React.useRef<HTMLInputElement>(null);
+
     const submitCallback: (
         state: IDeliveryRouteFormState
     ) => void = React.useCallback(
-        (state) => props.getPossibleRoutes({...state}),
+        (state) => {
+            props.getPossibleRoutes({...state});
+            if (firstInputRef.current) {
+                firstInputRef.current.focus();
+            }
+        },
         []
     );
 
@@ -47,44 +57,54 @@ export const DeliveryRouteForm = (
     } = state;
 
     return (
-        <form onSubmit={handleSubmit(submitCallback)}>
+        <div className="form-container">
             <div>
-                <label htmlFor="origin">Input Delivery Route Origin</label>
-                <input
-                    type="text"
-                    value={origin}
-                    id="origin"
-                    name="origin"
-                    placeholder="Example: A"
-                    onChange={handleChange}
-                />
+                <ColorText color={FormColor.DELIVERY_ROUTE_FORM}>
+                    Delivery Route Form
+                </ColorText>
             </div>
-            <div>
-                <label htmlFor="destination">Input Delivery Route Destination</label>
-                <input
-                    type="text"
-                    value={destination}
-                    id="destination"
-                    name="destination"
-                    placeholder="Example: B"
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="maxStopCount">Max Stop Count (optional)</label>
-                <input
-                    type="number"
-                    value={maxStopCount}
-                    id="maxStopCount"
-                    name="maxStopCount"
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <button type="button">
-                    Submit
-                </button>
-            </div>
-        </form>
+            <form onSubmit={handleSubmit(submitCallback)} autoComplete="off">
+                <div>
+                    <label htmlFor="origin">Input Delivery Route Origin</label>
+                    <input
+                        type="text"
+                        value={origin}
+                        id="origin"
+                        name="origin"
+                        placeholder="Example: A"
+                        maxLength={1}
+                        ref={firstInputRef}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="destination">Input Delivery Route Destination</label>
+                    <input
+                        type="text"
+                        value={destination}
+                        id="destination"
+                        name="destination"
+                        placeholder="Example: B"
+                        maxLength={1}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="maxStopCount">Max Stop Count (optional)</label>
+                    <input
+                        type="number"
+                        value={maxStopCount}
+                        id="maxStopCount"
+                        name="maxStopCount"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <button type="button">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     );
-};
+}, shallowEqual);

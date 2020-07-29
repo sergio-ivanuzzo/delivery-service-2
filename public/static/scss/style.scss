@@ -1,3 +1,42 @@
+@import "inputs";
+
+html, body, * {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
 .flex-container {
   display: flex;
+  width: 100%;
+
+  .flex-item {
+    flex: 3 3;
+  }
+
+}
+
+.form-container {
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 3px 0 gray;
+
+  form > * {
+    margin: 10px;
+  }
+}
+
+.errors-container {
+  margin: 10px;
+  padding: 0 10px;
+}
+
+.alert {
+  margin: 5px;
+  box-shadow: 0 0 3px 0 gray;
+  width: 100%;
+  padding: 10px;
+
+  .alert-title {
+    font-weight: bold;
+  }
 }

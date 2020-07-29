@@ -1,6 +1,9 @@
-import { IncorrectNodeError } from "../../errors/incorrectNodeError";
-import { NoPossibleRoutesError } from "../../errors/noPossibleRoutesError";
-import { NoRouteError } from "../../errors/noRouteError";
+import {
+    DuplicatedRouteError,
+    IncorrectNodeError,
+    NoPossibleRoutesError,
+    NoRouteError
+} from "../../common/errors";
 
 export default class RouteGraph {
 
@@ -14,6 +17,11 @@ export default class RouteGraph {
     }
 
     addEdge(startPoint: string, endPoint: string, cost: number) {
+
+        if (this.mapCostToRoute.get(startPoint + endPoint)) {
+            throw new DuplicatedRouteError();
+        }
+
         this.setVertex(startPoint);
         this.setVertex(endPoint);
 

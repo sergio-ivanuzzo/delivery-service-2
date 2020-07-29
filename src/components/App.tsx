@@ -11,26 +11,33 @@ import {
 import { AddRouteForm } from "./forms/addRouteForm";
 import { DeliveryRouteForm } from "./forms/deliveryRouteForm";
 import { DeliveryCostForm } from "./forms/deliveryCostForm";
-
-const renderUI = (props: IRouteContainerInjectedProps): React.ReactElement => {
-    return (
-        <div className="flex-container">
-            <div>
-                <AddRouteForm {...props} />
-            </div>
-            <div>
-                <div>
-                    <DeliveryCostForm {...props} />
-                </div>
-                <div>
-                    <DeliveryRouteForm {...props} />
-                </div>
-            </div>
-        </div>
-    );
-};
+import { ErrorsBlock } from "./blocks/errorsBlock";
 
 export const App = (): React.ReactElement => {
+
+    const renderUI = React.useCallback((props: IRouteContainerInjectedProps): React.ReactElement => {
+        return (
+            <div className="flex-container">
+                <div className="flex-item">
+                    <AddRouteForm {...props} />
+                </div>
+                <div className="flex-item">
+                    <div>
+                        <DeliveryCostForm {...props} />
+                    </div>
+                    <div>
+                        <DeliveryRouteForm {...props} />
+                    </div>
+                </div>
+                <div className="flex-item">
+                    <div>
+                        <ErrorsBlock errors={props.errors} />
+                    </div>
+                </div>
+            </div>
+        );
+    }, []);
+
     return (
         <Provider store={store}>
             <RouteContainer>

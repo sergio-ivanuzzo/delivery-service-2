@@ -1,0 +1,17 @@
+button {
+  border: 0;
+  padding: 10px;
+  box-shadow: 0 0 2px 0 snow;
+  border-radius: 5px;
+  background: #abcdfe;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  width: 100%;
+  outline: none;
+}
+
+label {
+  font-weight: bold;
+}
