@@ -24,28 +24,27 @@ export const DeliveryCostForm = (
     const {
         state,
         handleChange,
-        resetForm
+        handleSubmit
     } = useFormHook(initialState);
 
-    const handleSubmit = (event: React.FormEvent) => React.useCallback(() => {
-        event.preventDefault();
+    const submitCallback: (
+        state: IDeliveryCostFormState
+    ) => void = React.useCallback(
+        (state) => props.getDeliveryCost({...state}),
+        []
+    );
 
-        props.getDeliveryCost({
-            deliveryRoute: state.deliveryRoute
-        });
-
-        resetForm();
-    }, []);
+    const { deliveryRoute } = state;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submitCallback)}>
             <div>
-                <label htmlFor="route">Input Delivery Route</label>
+                <label htmlFor="deliveryRoute">Input Delivery Route</label>
                 <input
                     type="text"
-                    value={state.deliveryRoute}
-                    id="route"
-                    name="route"
+                    value={deliveryRoute}
+                    id="deliveryRoute"
+                    name="deliveryRoute"
                     placeholder="Example: ABCDE"
                     onChange={handleChange}
                 />

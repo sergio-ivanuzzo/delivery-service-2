@@ -22,21 +22,22 @@ export const AddRouteForm = (
     const {
         state,
         handleChange,
-        resetForm
+        handleSubmit
     } = useFormHook(initialState);
 
-    const handleSubmit = (event: React.FormEvent) => React.useCallback(() => {
-        event.preventDefault();
-
-        props.addRoute({...state});
-
-        resetForm();
-    }, []);
+    const submitCallback: (
+        state: IAddRouteFormState
+    ) => void = React.useCallback(
+        (state) => {
+            props.addRoute({...state})
+        },
+        []
+    );
 
     const { origin, destination, cost } = state;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submitCallback)}>
             <div>
                 <label htmlFor="origin">Input Route Origin</label>
                 <input
@@ -45,6 +46,7 @@ export const AddRouteForm = (
                     id="origin"
                     name="origin"
                     placeholder="Example: A"
+                    maxLength={1}
                     onChange={handleChange}
                 />
             </div>
@@ -56,6 +58,7 @@ export const AddRouteForm = (
                     id="destination"
                     name="destination"
                     placeholder="Example: B"
+                    maxLength={1}
                     onChange={handleChange}
                 />
             </div>

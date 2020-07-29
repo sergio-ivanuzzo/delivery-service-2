@@ -15,11 +15,21 @@ export function useFormHook<T>(initialState: T) {
         []
     );
 
-    const resetForm = React.useCallback(() => setState(initialState), []);
+    const handleSubmit = (
+        callback?: (state: T) => void
+    ) => (
+        event: React.FormEvent<HTMLFormElement>
+    ) => {
+        event.preventDefault();
+        if (callback) {
+            callback(state);
+        }
+        setState(initialState);
+    };
 
     return {
         state,
         handleChange,
-        resetForm
+        handleSubmit
     };
 }

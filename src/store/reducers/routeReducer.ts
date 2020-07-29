@@ -23,7 +23,10 @@ export const routeReducer = (
         case RouteActions.ADD_ROUTE_COMPLETE: {
             return {
                 ...state,
-                addedRoutes: [...state.addedRoutes, action.payload]
+                addedRoutes: [
+                    ...state.addedRoutes,
+                    action.payload.route
+                ]
             }
         }
 

@@ -18,7 +18,7 @@ export interface IAddRoutePayload {
 }
 
 export interface IAddRouteCompletePayload {
-    addedRoutes: string[];
+    route: string;
 }
 
 export interface IAddRouteAction extends AnyAction {

@@ -17,14 +17,8 @@ export function* addRouteSaga(action: IAddRouteAction) {
         const { origin, destination, cost } = action.payload;
         routeGraph.addEdge(origin, destination, cost);
 
-        const addedRoutes = Array.from(
-            routeGraph.mapCostToRoute.entries()
-        ).map((item) => {
-            return item.join("");
-        });
-
         yield put(RouteActions.addRouteCompleteAction({
-            addedRoutes
+            route: origin + destination
         }));
 
     } catch (e) {

@@ -14,11 +14,19 @@ import { DeliveryCostForm } from "./forms/deliveryCostForm";
 
 const renderUI = (props: IRouteContainerInjectedProps): React.ReactElement => {
     return (
-        <>
-            <DeliveryCostForm {...props} />
-            <AddRouteForm {...props} />
-            <DeliveryRouteForm {...props} />
-        </>
+        <div className="flex-container">
+            <div>
+                <AddRouteForm {...props} />
+            </div>
+            <div>
+                <div>
+                    <DeliveryCostForm {...props} />
+                </div>
+                <div>
+                    <DeliveryRouteForm {...props} />
+                </div>
+            </div>
+        </div>
     );
 };
 

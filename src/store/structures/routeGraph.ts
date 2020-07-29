@@ -13,18 +13,18 @@ export default class RouteGraph {
         this.mapCostToRoute = new Map();
     }
 
-    addEdge(vertex: string, node: string, cost: number) {
-        this.setVertex(vertex);
-        this.setVertex(node);
+    addEdge(startPoint: string, endPoint: string, cost: number) {
+        this.setVertex(startPoint);
+        this.setVertex(endPoint);
 
-        const adjacentNodes = this.adgencyList.get(vertex);
+        const adjacentNodes = this.adgencyList.get(startPoint);
         if (adjacentNodes) {
-            if (!adjacentNodes.includes(node)) {
-                adjacentNodes.push(node);
+            if (!adjacentNodes.includes(endPoint)) {
+                adjacentNodes.push(endPoint);
             }
         }
 
-        this.mapCostToRoute.set(vertex + node, cost);
+        this.mapCostToRoute.set(startPoint + endPoint, cost);
     }
 
     getRouteCost(route: string) {

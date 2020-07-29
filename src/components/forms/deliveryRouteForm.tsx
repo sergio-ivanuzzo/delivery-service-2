@@ -30,26 +30,31 @@ export const DeliveryRouteForm = (
     const {
         state,
         handleChange,
-        resetForm
+        handleSubmit
     } = useFormHook(initialState);
 
-    const handleSubmit = (event: React.FormEvent) => React.useCallback(() => {
-        event.preventDefault();
+    const submitCallback: (
+        state: IDeliveryRouteFormState
+    ) => void = React.useCallback(
+        (state) => props.getPossibleRoutes({...state}),
+        []
+    );
 
-        props.getPossibleRoutes({...state});
-
-        resetForm();
-    }, []);
+    const {
+        origin,
+        destination,
+        maxStopCount
+    } = state;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submitCallback)}>
             <div>
-                <label htmlFor="route">Input Delivery Route Origin</label>
+                <label htmlFor="origin">Input Delivery Route Origin</label>
                 <input
                     type="text"
-                    value={state.origin}
-                    id="route"
-                    name="route"
+                    value={origin}
+                    id="origin"
+                    name="origin"
                     placeholder="Example: A"
                     onChange={handleChange}
                 />
@@ -58,7 +63,7 @@ export const DeliveryRouteForm = (
                 <label htmlFor="destination">Input Delivery Route Destination</label>
                 <input
                     type="text"
-                    value={state.destination}
+                    value={destination}
                     id="destination"
                     name="destination"
                     placeholder="Example: B"
@@ -69,14 +74,14 @@ export const DeliveryRouteForm = (
                 <label htmlFor="maxStopCount">Max Stop Count (optional)</label>
                 <input
                     type="number"
-                    value={state.maxStopCount}
+                    value={maxStopCount}
                     id="maxStopCount"
                     name="maxStopCount"
                     onChange={handleChange}
                 />
             </div>
             <div>
-                <button type="submit">
+                <button type="button">
                     Submit
                 </button>
             </div>

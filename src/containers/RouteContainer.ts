@@ -45,22 +45,18 @@ const getInjectedProps = (): IRouteContainerInjectedProps => {
         possibleRoutes,
         cheapestRoute,
 
-        addRoute: (payload: IAddRoutePayload) => React.useCallback(
-            () => dispatch(RouteActions.addRouteAction(payload)),
-            []
-        ),
-        getDeliveryCost: (payload: IGetDeliveryCostPayload) => React.useCallback(
-            () => dispatch(RouteActions.getDeliveryCostAction(payload)),
-            []
-        ),
-        getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => React.useCallback(
-            () => dispatch(RouteActions.getPossibleRoutesAction(payload)),
-            []
-        ),
-        getCheapestRoute: (payload: IGetCheapestRoutePayload) => React.useCallback(
-            () => dispatch(RouteActions.getCheapestRouteAction(payload)),
-            []
-        ),
+        addRoute: (
+            payload: IAddRoutePayload
+        ) => dispatch(RouteActions.addRouteAction(payload)),
+        getDeliveryCost: (
+            payload: IGetDeliveryCostPayload
+        ) => dispatch(RouteActions.getDeliveryCostAction(payload)),
+        getPossibleRoutes: (
+            payload: IGetPossibleRoutesPayload
+        ) => dispatch(RouteActions.getPossibleRoutesAction(payload)),
+        getCheapestRoute: (
+            payload: IGetCheapestRoutePayload
+        ) => dispatch(RouteActions.getCheapestRouteAction(payload)),
     }
 };
 
