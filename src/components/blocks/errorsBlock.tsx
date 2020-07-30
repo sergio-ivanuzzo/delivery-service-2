@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import { IAddErrorPayload } from "../../store/actions/errorActions";
+import { IAddErrorCompletePayload } from "../../store/actions/errorActions";
 import { ColorText } from "../common/colorText";
 
 export interface IErrorsBlockProps {
-    errors: IAddErrorPayload[];
+    errors: IAddErrorCompletePayload[];
 }
 
-const ErrorItem = React.memo((item: IAddErrorPayload): React.ReactElement => {
+const ErrorItem = React.memo((item: IAddErrorCompletePayload): React.ReactElement => {
     const { text, color, type } = item;
 
     return (
@@ -27,7 +27,7 @@ const ErrorItem = React.memo((item: IAddErrorPayload): React.ReactElement => {
 export const ErrorsBlock = (props: IErrorsBlockProps): any => {
 
     const renderErrorItem = (
-        errorData: IAddErrorPayload
+        errorData: IAddErrorCompletePayload
     ): React.ReactElement => {
         return (<ErrorItem key={errorData.uniqId} {...errorData} />);
     };

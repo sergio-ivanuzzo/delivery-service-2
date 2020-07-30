@@ -1,7 +1,8 @@
 export enum ErrorLabel {
     ADD_ROUTE_ERROR = "Add Route Error",
     DELIVERY_COST_ERROR = "Delivery Cost Error",
-    DELIVERY_ROUTE_ERROR = "Delivery Route Error"
+    DELIVERY_ROUTE_ERROR = "Delivery Route Error",
+    CHEAPEST_ROUTE_ERROR = "Cheapest Route Error"
 }
 
 export class DuplicatedRouteError extends Error {
@@ -29,6 +30,13 @@ export class NoRouteError extends Error {
     constructor(message: string = "") {
         super(message);
         this.message = "No Route."
+    }
+}
+
+export class EmptyFormError extends Error {
+    constructor(message: string = "") {
+        super(message);
+        this.message = "Form is empty."
     }
 }
 

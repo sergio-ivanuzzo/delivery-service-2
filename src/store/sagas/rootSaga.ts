@@ -1,11 +1,13 @@
 import { all, takeEvery, AllEffect } from "redux-saga/effects";
 
 import { RouteActions } from "../actions/routeActions";
+import { ErrorActions } from "../actions/errorActions";
 import {
     addRouteSaga,
     getDeliveryCostSaga,
     getPossibleRoutesSaga,
-    getCheapestRouteSaga
+    getCheapestRouteSaga,
+    addErrorSaga
 } from "./routeSagas";
 
 export function* rootSaga(): IterableIterator<AllEffect<any>> {
@@ -25,6 +27,10 @@ export function* rootSaga(): IterableIterator<AllEffect<any>> {
         takeEvery(
             RouteActions.GET_CHEAPEST_ROUTE_REQUEST,
             getCheapestRouteSaga
+        ),
+        takeEvery(
+            ErrorActions.ADD_ERROR_REQUEST,
+            addErrorSaga
         ),
     ]);
 }

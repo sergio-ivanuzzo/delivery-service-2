@@ -8,10 +8,14 @@ import {
 import { useFormHook } from "../../hooks/formHook";
 import { ColorText } from "../common/colorText";
 import { FormColor } from "../../common/constants";
+import { ErrorLabel } from "../../common/errors";
+import { IAddErrorPayload } from "../../store/actions/errorActions";
 
 interface IDeliveryRouteFormProps {
+    possibleRoutes: string[];
     getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
     getCheapestRoute: (payload: IGetCheapestRoutePayload) => void;
+    addError: (payload: IAddErrorPayload) => void;
 }
 
 interface IDeliveryRouteFormState {
@@ -39,10 +43,20 @@ export const DeliveryRouteForm = React.memo((
     const firstInputRef = React.useRef<HTMLInputElement>(null);
 
     const submitCallback: (
-        state: IDeliveryRouteFormState
+        state: IDeliveryRouteFormState,
+        error?: Error
     ) => void = React.useCallback(
-        (state) => {
-            props.getPossibleRoutes({...state});
+        (state, error) => {
+            if (error) {
+                props.addError({
+                    text: error.toString(),
+                    type: ErrorLabel.DELIVERY_ROUTE_ERROR,
+                    color: FormColor.DELIVERY_ROUTE_FORM
+                })
+            } else {
+                props.getPossibleRoutes({...state});
+            }
+
             if (firstInputRef.current) {
                 firstInputRef.current.focus();
             }
@@ -58,7 +72,7 @@ export const DeliveryRouteForm = React.memo((
 
     return (
         <div className="form-container">
-            <div>
+            <div className="title">
                 <ColorText color={FormColor.DELIVERY_ROUTE_FORM}>
                     Delivery Route Form
                 </ColorText>
@@ -100,7 +114,7 @@ export const DeliveryRouteForm = React.memo((
                     />
                 </div>
                 <div>
-                    <button type="button">
+                    <button type="submit">
                         Submit
                     </button>
                 </div>

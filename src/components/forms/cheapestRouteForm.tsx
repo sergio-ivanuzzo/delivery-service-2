@@ -1,27 +1,35 @@
 import * as React from "react";
-import { shallowEqual } from "react-redux";
 
-import { IAddRoutePayload } from "../../store/actions/routeActions";
-import { useFormHook } from "../../hooks/formHook";
+import { useFormHook} from "../../hooks/formHook";
+import {
+    IGetCheapestRoutePayload,
+    IGetPossibleRoutesPayload
+} from "../../store/actions/routeActions";
 import { ColorText } from "../common/colorText";
-import { IAddErrorPayload} from "../../store/actions/errorActions";
 import { FormColor } from "../../common/constants";
 import { ErrorLabel } from "../../common/errors";
+import { IAddErrorPayload } from "../../store/actions/errorActions";
 
-interface IAddRouteFormProps {
-    addRoute: (payload: IAddRoutePayload) => void;
+interface ICheapestRouteFormProps {
+    possibleRoutes: string[];
+    getPossibleRoutes: (payload: IGetPossibleRoutesPayload) => void;
+    getCheapestRoute: (payload: IGetCheapestRoutePayload) => void;
     addError: (payload: IAddErrorPayload) => void;
 }
 
-interface IAddRouteFormState extends IAddRoutePayload {}
+interface ICheapestRouteFormState {
+    origin: string;
+    destination: string;
+    maxStopCount: number;
+}
 
-export const AddRouteForm = React.memo((
-    props: IAddRouteFormProps
+export const CheapestRouteForm = (
+    props: ICheapestRouteFormProps
 ): React.ReactElement => {
-    const initialState: IAddRouteFormState = {
+    const initialState: ICheapestRouteFormState = {
         origin: "",
         destination: "",
-        cost: 0
+        maxStopCount: 0
     };
 
     const {
@@ -33,18 +41,18 @@ export const AddRouteForm = React.memo((
     const firstInputRef = React.useRef<HTMLInputElement>(null);
 
     const submitCallback: (
-        state: IAddRouteFormState,
+        state: ICheapestRouteFormState,
         error?: Error
     ) => void = React.useCallback(
         (state, error) => {
             if (error) {
                 props.addError({
                     text: error.toString(),
-                    type: ErrorLabel.ADD_ROUTE_ERROR,
-                    color: FormColor.ADD_ROUTE_FORM
+                    type: ErrorLabel.CHEAPEST_ROUTE_ERROR,
+                    color: FormColor.CHEAPEST_ROUTE_FORM
                 })
             } else {
-                props.addRoute({...state});
+                props.getCheapestRoute({...state});
             }
 
             if (firstInputRef.current) {
@@ -54,21 +62,22 @@ export const AddRouteForm = React.memo((
         []
     );
 
-    const { origin, destination, cost } = state;
+    const {
+        origin,
+        destination,
+        maxStopCount
+    } = state;
 
     return (
         <div className="form-container">
             <div className="title">
-                <ColorText color={FormColor.ADD_ROUTE_FORM}>
-                    Add Route Form
+                <ColorText color={FormColor.CHEAPEST_ROUTE_FORM}>
+                    Cheapest Route Form
                 </ColorText>
             </div>
-            <form
-                onSubmit={handleSubmit(submitCallback)}
-                autoComplete="off"
-            >
+            <form onSubmit={handleSubmit(submitCallback)} autoComplete="off">
                 <div>
-                    <label htmlFor="origin">Input Route Origin</label>
+                    <label htmlFor="origin">Input Delivery Route Origin</label>
                     <input
                         type="text"
                         value={origin}
@@ -81,7 +90,7 @@ export const AddRouteForm = React.memo((
                     />
                 </div>
                 <div>
-                    <label htmlFor="destination">Input Route Destination</label>
+                    <label htmlFor="destination">Input Delivery Route Destination</label>
                     <input
                         type="text"
                         value={destination}
@@ -93,12 +102,12 @@ export const AddRouteForm = React.memo((
                     />
                 </div>
                 <div>
-                    <label htmlFor="cost">Input Route Cost</label>
+                    <label htmlFor="maxStopCount">Max Stop Count (optional)</label>
                     <input
                         type="number"
-                        value={cost}
-                        id="cost"
-                        name="cost"
+                        value={maxStopCount}
+                        id="maxStopCount"
+                        name="maxStopCount"
                         onChange={handleChange}
                     />
                 </div>
@@ -110,4 +119,4 @@ export const AddRouteForm = React.memo((
             </form>
         </div>
     );
-}, shallowEqual);
+};

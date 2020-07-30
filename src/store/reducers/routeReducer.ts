@@ -33,21 +33,21 @@ export const routeReducer = (
         case RouteActions.GET_DELIVERY_COST_COMPLETE: {
             return {
                 ...state,
-                deliveryCost: action.payload
+                deliveryCost: action.payload.cost
             }
         }
 
         case RouteActions.GET_POSSIBLE_ROUTES_COMPLETE: {
             return {
                 ...state,
-                possibleRoutes: action.payload
+                possibleRoutes: action.payload.possibleRoutes
             }
         }
 
         case RouteActions.GET_CHEAPEST_ROUTE_COMPLETE: {
             return {
                 ...state,
-                cheapestRoute: action.payload
+                cheapestRoute: action.payload.cheapestRoute
             }
         }
 

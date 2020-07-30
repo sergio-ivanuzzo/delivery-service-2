@@ -16,6 +16,7 @@ import {
     ErrorLabel
 } from "../../common/errors";
 import { uniqkey } from "../../helpers/uniqkey";
+import {IAddErrorAction} from "../actions/errorActions";
 
 const routeGraph = new RouteGraph();
 
@@ -27,7 +28,7 @@ interface IErrorData {
 
 function* addError(errorData: IErrorData) {
     yield put(
-        ErrorActions.addErrorAction({
+        ErrorActions.addErrorCompleteAction({
             ...errorData,
             uniqId: uniqkey()
         })
@@ -103,8 +104,6 @@ export function* getPossibleRoutesSaga(action: IGetPossibleRoutesAction) {
             maxStopCount
         );
 
-        console.log("=", possibleRoutes);
-
         yield put(RouteActions.getPossibleRoutesCompleteAction({
             possibleRoutes
         }));
@@ -121,11 +120,22 @@ export function* getPossibleRoutesSaga(action: IGetPossibleRoutesAction) {
 }
 
 export function* getCheapestRouteSaga(action: IGetCheapestRouteAction) {
-    const errorType = ErrorLabel.DELIVERY_ROUTE_ERROR;
-    const errorColor = FormColor.DELIVERY_ROUTE_FORM;
+    const errorType = ErrorLabel.CHEAPEST_ROUTE_ERROR;
+    const errorColor = FormColor.CHEAPEST_ROUTE_FORM;
 
     try {
-        const { possibleRoutes } = action.payload;
+        const {
+            origin,
+            destination,
+            maxStopCount
+        } = action.payload;
+
+        const possibleRoutes = routeGraph.getPossibleRoutes(
+            origin,
+            destination,
+            maxStopCount
+        );
+
         const cheapestRoutes = routeGraph.getCheapestRoutes(possibleRoutes);
 
         yield put(RouteActions.getCheapestRouteCompleteAction({
@@ -141,5 +151,9 @@ export function* getCheapestRouteSaga(action: IGetCheapestRouteAction) {
             color: errorColor
         });
     }
+}
+
+export function* addErrorSaga(action: IAddErrorAction) {
+    yield addError(action.payload);
 }
 

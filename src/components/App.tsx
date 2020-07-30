@@ -12,6 +12,7 @@ import { AddRouteForm } from "./forms/addRouteForm";
 import { DeliveryRouteForm } from "./forms/deliveryRouteForm";
 import { DeliveryCostForm } from "./forms/deliveryCostForm";
 import { ErrorsBlock } from "./blocks/errorsBlock";
+import { CheapestRouteForm } from "./forms/cheapestRouteForm";
 
 export const App = (): React.ReactElement => {
 
@@ -27,6 +28,11 @@ export const App = (): React.ReactElement => {
                     </div>
                     <div>
                         <DeliveryRouteForm {...props} />
+                    </div>
+                </div>
+                <div className="flex-item">
+                    <div>
+                        <CheapestRouteForm {...props} />
                     </div>
                 </div>
                 <div className="flex-item">

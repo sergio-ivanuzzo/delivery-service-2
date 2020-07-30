@@ -2,11 +2,11 @@ import { AnyAction } from "redux";
 
 import {
     ErrorActions,
-    IAddErrorPayload
+    IAddErrorCompletePayload
 } from "../actions/errorActions";
 
 export interface IErrorReducerState {
-    errors: Array<IAddErrorPayload>;
+    errors: Array<IAddErrorCompletePayload>;
 }
 
 const initialState: IErrorReducerState = {
@@ -18,14 +18,14 @@ export const errorReducer = (
     action: AnyAction
 ): IErrorReducerState => {
     switch (action.type) {
-        case ErrorActions.ADD_ERROR: {
+        case ErrorActions.ADD_ERROR_COMPLETE: {
             return {
                 ...state,
                 errors: [...state.errors, action.payload]
             }
         }
 
-        case ErrorActions.REMOVE_ERRORS: {
+        case ErrorActions.REMOVE_ERRORS_COMPLETE: {
             return {
                 ...state,
                 errors: state.errors.filter(

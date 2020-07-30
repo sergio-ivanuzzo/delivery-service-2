@@ -1,5 +1,8 @@
 import * as React from "react";
 
+import { isEqual } from "../helpers/isEqual";
+import { EmptyFormError } from "../common/errors";
+
 export function useFormHook<T>(initialState: T) {
 
     const [state, setState] = React.useState(initialState);
@@ -16,13 +19,17 @@ export function useFormHook<T>(initialState: T) {
     );
 
     const handleSubmit = (
-        callback?: (state: T) => void
+        callback?: (state: T, error?: Error) => void
     ) => (
         event: React.FormEvent<HTMLFormElement>
     ) => {
         event.preventDefault();
         if (callback) {
-            callback(state);
+            if (isEqual(state, initialState)) {
+                callback(state, new EmptyFormError());
+            } else {
+                callback(state);
+            }
         }
         setState(initialState);
     };

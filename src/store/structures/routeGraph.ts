@@ -18,7 +18,7 @@ export default class RouteGraph {
 
     addEdge(startPoint: string, endPoint: string, cost: number) {
 
-        if (this.mapCostToRoute.get(startPoint + endPoint)) {
+        if (this.mapCostToRoute.get(startPoint + endPoint) !== undefined) {
             throw new DuplicatedRouteError();
         }
 

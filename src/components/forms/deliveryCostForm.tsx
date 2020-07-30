@@ -7,9 +7,12 @@ import {
 import { useFormHook } from "../../hooks/formHook";
 import { ColorText } from "../common/colorText";
 import { FormColor } from "../../common/constants";
+import { ErrorLabel } from "../../common/errors";
+import { IAddErrorPayload } from "../../store/actions/errorActions";
 
 interface IDeliveryCostFormProps {
     getDeliveryCost: (payload: IGetDeliveryCostPayload) => void;
+    addError: (payload: IAddErrorPayload) => void;
 }
 
 interface IDeliveryCostFormState {
@@ -33,10 +36,20 @@ export const DeliveryCostForm = React.memo((
     const firstInputRef = React.useRef<HTMLInputElement>(null);
 
     const submitCallback: (
-        state: IDeliveryCostFormState
+        state: IDeliveryCostFormState,
+        error?: Error
     ) => void = React.useCallback(
-        (state) => {
-            props.getDeliveryCost({...state});
+        (state, error) => {
+            if (error) {
+                props.addError({
+                    text: error.toString(),
+                    type: ErrorLabel.DELIVERY_COST_ERROR,
+                    color: FormColor.DELIVERY_COST_FORM
+                })
+            } else {
+                props.getDeliveryCost({...state});
+            }
+
             if (firstInputRef.current) {
                 firstInputRef.current.focus();
             }
@@ -48,7 +61,7 @@ export const DeliveryCostForm = React.memo((
 
     return (
         <div className="form-container">
-            <div>
+            <div className="title">
                 <ColorText color={FormColor.DELIVERY_COST_FORM}>
                     Delivery Cost Form
                 </ColorText>

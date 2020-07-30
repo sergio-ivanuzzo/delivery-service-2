@@ -52,7 +52,9 @@ export interface IGetPossibleRoutesAction extends AnyAction {
 }
 
 export interface IGetCheapestRoutePayload {
-    payload: IGetPossibleRoutesCompletePayload;
+    origin: string;
+    destination: string;
+    maxStopCount: number;
 }
 
 export interface IGetCheapestRouteCompletePayload {
@@ -60,7 +62,7 @@ export interface IGetCheapestRouteCompletePayload {
 }
 
 export interface IGetCheapestRouteAction extends AnyAction {
-    payload: IGetPossibleRoutesCompletePayload;
+    payload: IGetCheapestRoutePayload;
 }
 
 export function addRouteAction(payload: IAddRoutePayload) {
