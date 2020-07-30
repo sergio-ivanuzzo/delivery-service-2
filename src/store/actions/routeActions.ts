@@ -59,6 +59,7 @@ export interface IGetCheapestRoutePayload {
 
 export interface IGetCheapestRouteCompletePayload {
     cheapestRoutes: string[];
+    cheapestRouteCost: number;
 }
 
 export interface IGetCheapestRouteAction extends AnyAction {

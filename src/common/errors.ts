@@ -29,7 +29,7 @@ export class NoPossibleRoutesError extends Error {
 export class NoRouteError extends Error {
     constructor(message: string = "") {
         super(message);
-        this.message = "No Route."
+        this.message = "No Such Route."
     }
 }
 

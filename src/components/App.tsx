@@ -13,6 +13,10 @@ import { DeliveryRouteForm } from "./forms/deliveryRouteForm";
 import { DeliveryCostForm } from "./forms/deliveryCostForm";
 import { ErrorsBlock } from "./blocks/errorsBlock";
 import { CheapestRouteForm } from "./forms/cheapestRouteForm";
+import { AddedRoutesBlock } from "./blocks/addedRoutesBlock";
+import { DeliveryCostBlock } from "./blocks/deliveryCostBlock";
+import { CheapestRoutesBlock } from "./blocks/cheapestRouteBlock";
+import { PossibleRoutesBlock } from "./blocks/possibleRoutesBlock";
 
 export const App = (): React.ReactElement => {
 
@@ -21,18 +25,22 @@ export const App = (): React.ReactElement => {
             <div className="flex-container">
                 <div className="flex-item">
                     <AddRouteForm {...props} />
+                    <AddedRoutesBlock {...props} />
+                </div>
+                <div className="flex-item">
+                    <div>
+                        <DeliveryRouteForm {...props} />
+                        <PossibleRoutesBlock {...props} />
+                    </div>
                 </div>
                 <div className="flex-item">
                     <div>
                         <DeliveryCostForm {...props} />
+                        <DeliveryCostBlock {...props} />
                     </div>
-                    <div>
-                        <DeliveryRouteForm {...props} />
-                    </div>
-                </div>
-                <div className="flex-item">
                     <div>
                         <CheapestRouteForm {...props} />
+                        <CheapestRoutesBlock {...props} />
                     </div>
                 </div>
                 <div className="flex-item">

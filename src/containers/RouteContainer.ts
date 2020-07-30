@@ -40,7 +40,8 @@ export const RouteContainer = React.memo(
                 addedRoutes,
                 deliveryCost,
                 possibleRoutes,
-                cheapestRoute,
+                cheapestRoutes,
+                cheapestRouteCost,
                 errors
             } = useSelector(rootSelector, shallowEqual);
 
@@ -50,7 +51,8 @@ export const RouteContainer = React.memo(
                 addedRoutes,
                 deliveryCost,
                 possibleRoutes,
-                cheapestRoute,
+                cheapestRoutes,
+                cheapestRouteCost,
                 errors,
 
                 addRoute: (

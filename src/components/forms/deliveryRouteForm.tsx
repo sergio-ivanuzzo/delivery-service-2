@@ -72,14 +72,14 @@ export const DeliveryRouteForm = React.memo((
 
     return (
         <div className="form-container">
-            <div className="title">
+            <div className="title text-center">
                 <ColorText color={FormColor.DELIVERY_ROUTE_FORM}>
                     Delivery Route Form
                 </ColorText>
             </div>
             <form onSubmit={handleSubmit(submitCallback)} autoComplete="off">
                 <div>
-                    <label htmlFor="origin">Input Delivery Route Origin</label>
+                    <label htmlFor="origin">Origin</label>
                     <input
                         type="text"
                         value={origin}
@@ -89,10 +89,11 @@ export const DeliveryRouteForm = React.memo((
                         maxLength={1}
                         ref={firstInputRef}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
-                    <label htmlFor="destination">Input Delivery Route Destination</label>
+                    <label htmlFor="destination">Destination</label>
                     <input
                         type="text"
                         value={destination}
@@ -101,6 +102,7 @@ export const DeliveryRouteForm = React.memo((
                         placeholder="Example: B"
                         maxLength={1}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -113,7 +115,7 @@ export const DeliveryRouteForm = React.memo((
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="text-right">
                     <button type="submit">
                         Submit
                     </button>

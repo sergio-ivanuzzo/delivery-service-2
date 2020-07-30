@@ -61,14 +61,14 @@ export const DeliveryCostForm = React.memo((
 
     return (
         <div className="form-container">
-            <div className="title">
+            <div className="title text-center">
                 <ColorText color={FormColor.DELIVERY_COST_FORM}>
                     Delivery Cost Form
                 </ColorText>
             </div>
             <form onSubmit={handleSubmit(submitCallback)} autoComplete="off">
                 <div>
-                    <label htmlFor="deliveryRoute">Input Delivery Route</label>
+                    <label htmlFor="deliveryRoute">Delivery Route</label>
                     <input
                         type="text"
                         value={deliveryRoute}
@@ -79,7 +79,7 @@ export const DeliveryCostForm = React.memo((
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="text-right">
                     <button type="submit">
                         Submit
                     </button>

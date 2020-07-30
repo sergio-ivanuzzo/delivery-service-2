@@ -85,7 +85,7 @@ export default class RouteGraph {
             route.push(vertex);
 
             if (vertex === destination) {
-                routes.push(route.join("-"));
+                routes.push(route.join(""));
             } else {
                 const nodes = this.adgencyList.get(vertex);
                 if (!nodes) {
@@ -116,18 +116,23 @@ export default class RouteGraph {
         return routes;
     }
 
-    getCheapestRoutes(possibleRoutes: string[]): string[] {
+    getCheapestRoutes(possibleRoutes: string[]) {
         const routesCost: {[route: string]: number} = {};
 
-        possibleRoutes.forEach((route) => {
-            routesCost[route] = this.getRouteCost(route);
+        possibleRoutes.forEach((deliveryRoute) => {
+            routesCost[deliveryRoute] = this.getRouteCost(deliveryRoute);
         });
 
-        const minCost = Math.min(...Object.values(routesCost));
+        const cheapestRouteCost = Math.min(...Object.values(routesCost));
 
-        return Object.keys(routesCost).filter(
-            (route: string) => routesCost[route] === minCost
+        const cheapestRoutes = Object.keys(routesCost).filter(
+            (route: string) => routesCost[route] === cheapestRouteCost
         );
+
+        return {
+            cheapestRoutes,
+            cheapestRouteCost
+        }
     }
 
     protected setVertex(vertex: string) {

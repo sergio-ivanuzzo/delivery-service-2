@@ -34,7 +34,7 @@ export const ErrorsBlock = (props: IErrorsBlockProps): any => {
 
     return (
         <div className="errors-container">
-            {props.errors.map(renderErrorItem)}
+            {props.errors.reverse().map(renderErrorItem)}
         </div>
     );
 };

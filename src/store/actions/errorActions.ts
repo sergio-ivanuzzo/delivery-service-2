@@ -1,4 +1,4 @@
-import {AnyAction} from "redux";
+import { AnyAction } from "redux";
 
 export enum ErrorActions {
     ADD_ERROR_REQUEST = "ADD_ERROR_REQUEST",

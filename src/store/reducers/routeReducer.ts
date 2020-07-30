@@ -6,14 +6,16 @@ export interface IRouteReducerState {
     addedRoutes: string[];
     deliveryCost: number;
     possibleRoutes: string[];
-    cheapestRoute: string;
+    cheapestRoutes: string[];
+    cheapestRouteCost: number;
 }
 
 const initialState: IRouteReducerState = {
     addedRoutes: [],
     deliveryCost: 0,
     possibleRoutes: [],
-    cheapestRoute: ""
+    cheapestRoutes: [],
+    cheapestRouteCost: 0
 };
 
 export const routeReducer = (
@@ -47,7 +49,8 @@ export const routeReducer = (
         case RouteActions.GET_CHEAPEST_ROUTE_COMPLETE: {
             return {
                 ...state,
-                cheapestRoute: action.payload.cheapestRoute
+                cheapestRoutes: action.payload.cheapestRoutes,
+                cheapestRouteCost: action.payload.cheapestRouteCost
             }
         }
 

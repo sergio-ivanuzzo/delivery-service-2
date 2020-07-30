@@ -136,10 +136,14 @@ export function* getCheapestRouteSaga(action: IGetCheapestRouteAction) {
             maxStopCount
         );
 
-        const cheapestRoutes = routeGraph.getCheapestRoutes(possibleRoutes);
+        const {
+            cheapestRoutes,
+            cheapestRouteCost
+        } = routeGraph.getCheapestRoutes(possibleRoutes);
 
         yield put(RouteActions.getCheapestRouteCompleteAction({
-            cheapestRoutes
+            cheapestRoutes,
+            cheapestRouteCost
         }));
 
         yield removeError(errorType);

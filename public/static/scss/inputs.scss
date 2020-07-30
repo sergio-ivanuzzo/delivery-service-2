@@ -3,7 +3,14 @@ button {
   padding: 10px;
   box-shadow: 0 0 2px 0 snow;
   border-radius: 5px;
-  background: #abcdfe;
+  background: #0ccadd;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 3px 0 gray;
+    background: #10def2;
+  }
 }
 
 input[type="text"], input[type="number"] {

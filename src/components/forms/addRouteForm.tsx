@@ -58,7 +58,7 @@ export const AddRouteForm = React.memo((
 
     return (
         <div className="form-container">
-            <div className="title">
+            <div className="title text-center">
                 <ColorText color={FormColor.ADD_ROUTE_FORM}>
                     Add Route Form
                 </ColorText>
@@ -68,7 +68,7 @@ export const AddRouteForm = React.memo((
                 autoComplete="off"
             >
                 <div>
-                    <label htmlFor="origin">Input Route Origin</label>
+                    <label htmlFor="origin">Origin</label>
                     <input
                         type="text"
                         value={origin}
@@ -78,10 +78,11 @@ export const AddRouteForm = React.memo((
                         maxLength={1}
                         ref={firstInputRef}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
-                    <label htmlFor="destination">Input Route Destination</label>
+                    <label htmlFor="destination">Destination</label>
                     <input
                         type="text"
                         value={destination}
@@ -90,10 +91,11 @@ export const AddRouteForm = React.memo((
                         placeholder="Example: B"
                         maxLength={1}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
-                    <label htmlFor="cost">Input Route Cost</label>
+                    <label htmlFor="cost">Route Cost</label>
                     <input
                         type="number"
                         value={cost}
@@ -102,7 +104,7 @@ export const AddRouteForm = React.memo((
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="text-right">
                     <button type="submit">
                         Submit
                     </button>
