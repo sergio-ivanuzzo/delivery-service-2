@@ -35,7 +35,7 @@ export default class RouteGraph {
         this.mapCostToRoute.set(startPoint + endPoint, cost);
     }
 
-    getRouteCost(route: string) {
+    getRouteCost(route: string): number {
         let totalCost = 0;
         let noRoute = false;
 
@@ -45,7 +45,7 @@ export default class RouteGraph {
 
             const cost = this.mapCostToRoute.get(startPoint + endPoint);
 
-            if (cost) {
+            if (cost !== undefined) {
                 totalCost += Number(cost);
             } else {
                 noRoute = true;
@@ -80,7 +80,6 @@ export default class RouteGraph {
         });
 
         const findRoute = (vertex: string, stopCount: number) => {
-
             visited.set(vertex, true);
             route.push(vertex);
 
@@ -109,11 +108,11 @@ export default class RouteGraph {
 
         routes = findRoute(origin, 0);
 
-        if (!routes) {
+        if (!routes.length) {
             throw new NoPossibleRoutesError();
         }
 
-        return routes;
+        return routes.filter((route) => this.getRouteCost(route));
     }
 
     getCheapestRoutes(possibleRoutes: string[]) {

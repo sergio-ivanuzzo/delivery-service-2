@@ -50,7 +50,7 @@ export function* addRouteSaga(action: IAddRouteAction) {
         routeGraph.addEdge(origin, destination, cost);
 
         yield put(RouteActions.addRouteCompleteAction({
-            route: origin + destination
+            route: origin + destination + cost
         }));
 
         yield removeError(errorType);

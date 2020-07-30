@@ -11,11 +11,24 @@ export interface IAddedRoutesBlockProps {
 export const AddedRoutesBlock = (
     props: IAddedRoutesBlockProps
 ): React.ReactElement => {
+
     const renderErrorItem = (
-        route: string,
+        data: string,
         index: number
     ): React.ReactElement => {
-        return ((<div key={index}>{route}</div>));
+        const route = data.slice(0, 2);
+        const cost = data.slice(-1);
+
+        return (
+            <div key={index} className="flex-container">
+                <div className="flex-item">
+                    {route}
+                </div>
+                <div className="flex-item">
+                    Cost: {cost}
+                </div>
+            </div>
+        );
     };
 
     const renderErrorItems = (): React.ReactElement => {
